@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <div>  
+      <ul>Files list:
+        {% for file in files_list %}
+          <li><a href="{{ url_for('download', filename=file) }}">{{ file }}</a></li>
+        {% endfor %}
+      </ul>
+      <h1>Upload a new file:</h1>
+      <form action="upload" method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+      </form>
+    </div>
+  {% endif %}
+{% endblock %}
