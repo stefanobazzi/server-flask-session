@@ -16,6 +16,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 # User Configuration
 FILENAME = 'files_list.txt'
 
+files_list = []
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -39,15 +40,13 @@ def save_files_list(filename):
 
 def load_files_list(filename):
     if os.path.exists(filename):
-        with open(filename, 'rw') as f:
-            return [line.replace('\n', '') for line in f.readlines()]
-    else:
-        return []
+        with open(filename, 'r') as f:
+            files_list = [line.replace('\n', '') for line in f.readlines()]
 
-files_list = load_files_list(FILENAME)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    load_files_list(FILENAME)
     error = None
     if request.method == 'POST':
         if request.form['username'] != app.config['USERNAME'] or \
@@ -65,7 +64,7 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash('Goodbye, you are logged out')
-    files_list
+    files_list = []
     return redirect(url_for('login'))
 
 
@@ -93,7 +92,7 @@ def upload():
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            files_list.append(f.filename)
+            files_list.append(filename)
             save_files_list(FILENAME)
             return redirect(url_for('home'))
     return redirect(url_for('home'))
