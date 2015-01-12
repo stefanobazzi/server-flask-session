@@ -5,8 +5,7 @@ from werkzeug import secure_filename
 from functools import wraps
 
 
-# Configuration files
-DATABASE = './data.db'
+# Server Configuration files
 DEBUG = True
 SECRET_KEY = 'under construction'
 USERNAME = 'admin'
@@ -14,7 +13,9 @@ PASSWORD = 'password'
 UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-files_list = []
+# User Configuration
+FILENAME = 'files_list.txt'
+
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -29,6 +30,21 @@ def allowed_file(name):
     return '.' in name and \
         name.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
+def save_files_list(filename):
+    with open(filename, 'w') as f:
+        for filename in files_list:
+            f.write('{}\n'.format(filename))
+
+
+def load_files_list(filename):
+    if os.path.exists(filename):
+        with open(filename, 'rw') as f:
+            return [line.replace('\n', '') for line in f.readlines()]
+    else:
+        return []
+
+files_list = load_files_list(FILENAME)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -49,6 +65,7 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash('Goodbye, you are logged out')
+    files_list
     return redirect(url_for('login'))
 
 
@@ -77,7 +94,7 @@ def upload():
             filename = secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             files_list.append(f.filename)
-            # TODO save_files_list()
+            save_files_list(FILENAME)
             return redirect(url_for('home'))
     return redirect(url_for('home'))
 
