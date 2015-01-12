@@ -1,0 +1,23 @@
+    #############
+    # TEST PLAN #
+    #############   
+
+INTRODUZIONE
+    - Obiettivi: Validazione del software, verificare funzionalità di autenticazione, upload, download.
+    - Scope
+    - Strategie di test: unittest, test automatici
+
+REQUISITI
+    - Requisiti dei test: modulo unittest
+    - Procedure di installazione del software: pip install flask
+
+SCOPE
+    - Da testatare: comportamento funzioni
+    - Non da testare: moduli importati
+
+PROCEDURE DI TEST
+    - Unit test
+    - System test
+    - Test di regeressione
+    - Performance test
+    - Test manuali
