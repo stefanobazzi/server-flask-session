@@ -7,6 +7,9 @@
           <li><a href="{{ url_for('download', filename=file) }}">{{ file }}</a></li>
         {% endfor %}
       </ul>
+      {% if files_list|length > 0 %}
+        <a href="{{ url_for('download', filename='files_list.txt') }}">download files list</a>
+      {% endif %}
       <h1>Upload a new file:</h1>
       <form action="upload" method=post enctype=multipart/form-data>
         <input type=file name=file>
