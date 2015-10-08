@@ -113,4 +113,6 @@ def main():
 
 
 if __name__ == '__main__':
+    create_folder()
+    load_files_list(FILENAME, files_list)
     main()
