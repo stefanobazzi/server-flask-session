@@ -5,6 +5,8 @@ from werkzeug import secure_filename
 from functools import wraps
 
 
+current_dir = os.path.dirname(os.path.realpath(__file__))
+
 # Server Configuration files
 DEBUG = True
 SECRET_KEY = 'under construction'
