@@ -49,7 +49,6 @@ def load_files_list(filename, files_list):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    load_files_list(FILENAME)
     error = None
     if request.method == 'POST':
         if request.form['username'] != app.config['USERNAME'] or \
