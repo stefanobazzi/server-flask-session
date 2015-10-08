@@ -12,8 +12,8 @@ DEBUG = True
 SECRET_KEY = 'under construction'
 USERNAME = 'admin'
 PASSWORD = 'password'
-UPLOAD_FOLDER = os.path.dirname(os.path.realpath(__file__))
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+UPLOAD_FOLDER = os.path.join(current_dir, 'files')
 
 # User Configuration
 FILENAME = 'files_list.txt'
