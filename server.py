@@ -25,8 +25,8 @@ app.config.from_object(__name__)
 
 
 def create_folder():
-    path = os.path.dirname(os.path.relpath(__file__))
-    files_path = os.join(path, 'files')
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.mkdir(UPLOAD_FOLDER)
 
 
 def allowed_file(name):
