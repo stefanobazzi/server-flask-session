@@ -35,15 +35,16 @@ def allowed_file(name):
 
 
 def save_files_list(filename):
-    with open(filename, 'w') as f:
+    with open(os.path.join(UPLOAD_FOLDER, filename), 'w') as f:
         for filename in files_list:
             f.write('{}\n'.format(filename))
 
 
-def load_files_list(filename):
-    if os.path.exists(filename):
-        with open(filename, 'r') as f:
-            files_list = [line.replace('\n', '') for line in f.readlines()]
+def load_files_list(filename, files_list):
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as f:
+            files_list.extend([line.replace('\n', '') for line in f.readlines()])
 
 
 @app.route('/login', methods=['GET', 'POST'])
