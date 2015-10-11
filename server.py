@@ -107,6 +107,19 @@ def download(filename=None):
                                filename, as_attachment=True)
 
 
+@app.route('/delete/<filename>', methods=['GET'])
+@is_logged
+def delete(filename):
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        files_list.remove(filename)
+        save_files_list(FILES)
+    else:
+        flash('Error! File not found')
+    return redirect(url_for('home'))
+
+
 def main():
     app.run()
 
