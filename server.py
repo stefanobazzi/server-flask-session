@@ -16,7 +16,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 UPLOAD_FOLDER = os.path.join(current_dir, 'files')
 
 # User Configuration
-FILENAME = 'files_list.txt'
+FILES = 'files_list.txt'
 
 files_list = []
 
@@ -95,8 +95,10 @@ def upload():
             filename = secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             files_list.append(filename)
-            save_files_list(FILENAME)
+            save_files_list(FILES)
             return redirect(url_for('home'))
+        else:
+            flash('Invalid file type')
     return redirect(url_for('home'))
 
 
@@ -126,5 +128,5 @@ def main():
 
 if __name__ == '__main__':
     create_folder()
-    load_files_list(FILENAME, files_list)
+    load_files_list(FILES, files_list)
     main()
