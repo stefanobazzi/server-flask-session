@@ -1,15 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
-    <div>  
-      <ul>Files list:
-        {% for file in files_list %}
-          <li><a href="{{ url_for('download', filename=file) }}">{{ file }}</a></li>
-        {% endfor %}
-      </ul>
-      {% if files_list|length > 0 %}
-        <a href="{{ url_for('download', filename='files_list.txt') }}">download files list</a>
-      {% endif %}
     <div>
       <table class="table table-hover">
         <thead>
