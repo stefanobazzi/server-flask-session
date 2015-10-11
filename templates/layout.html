@@ -13,8 +13,61 @@
         <a href="{{ url_for('logout') }}">log out</a>
       {% else %}
         <a href="{{ url_for('login') }}">login</a>
-      {% endif %}
-    </div>
-    
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SSS</title>
 
-</div>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class=page>
+              <div class="jumbotron">
+                <h1>SSS</h1>
+              </div>  
+              <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="#">SimpleStorageServer</a>
+                  </div>
+                  <div>
+                    {% if session.logged_in %}
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                      <li>                
+                        <a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
+                      </li>
+                    {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+              {% for message in get_flashed_messages() %}
+                <div class="alert alert-info">
+                 <div class=flash>{{ message }}</div>
+                </div>
+              {% endfor %}
+              <div class=metanav>
+                {% block body %}{% endblock %}
+              </div>        
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
